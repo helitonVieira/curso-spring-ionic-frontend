@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, MenuController } from 'ionic-angular';
-import { IonicPage } from 'ionic-angular/navigation/ionic-page';
+import { NavController, IonicPage } from 'ionic-angular';
+import { MenuController } from 'ionic-angular/components/app/menu-controller';
 import { CredenciaisDTO } from '../../models/credenciais.dto';
 import { AuthService } from '../../services/auth.service';
 
@@ -13,17 +13,16 @@ export class HomePage {
 
   creds : CredenciaisDTO = {
     email: "",
-    senha:""
+    senha: ""
   };
 
   constructor(
-    public navCtrl: NavController,
+    public navCtrl: NavController, 
     public menu: MenuController,
     public auth: AuthService) {
+
   }
 
-  // desabilitar menu quando entrar pagina inicial pesquisar 
-  // ciclo de vida da pagina ionic lifecycle
   ionViewWillEnter() {
     this.menu.swipeEnable(false);
   }
@@ -34,19 +33,23 @@ export class HomePage {
 
   ionViewDidEnter() {
     this.auth.refreshToken()
-    .subscribe(response => {
-      this.auth.successfulLogin(response.headers.get('Authorization'));
-      this.navCtrl.setRoot('CategoriasPage');
-    },
-    error => {});
+      .subscribe(response => {
+        this.auth.successfulLogin(response.headers.get('Authorization'));
+        this.navCtrl.setRoot('CategoriasPage');
+      },
+      error => {});  
   }
 
-  login(){
+  login() {
     this.auth.authenticate(this.creds)
-    .subscribe(response => {
-      this.auth.successfulLogin(response.headers.get('Authorization'));
-      this.navCtrl.setRoot('CategoriasPage');
-    },
-    error => {});
+      .subscribe(response => {
+        this.auth.successfulLogin(response.headers.get('Authorization'));
+        this.navCtrl.setRoot('CategoriasPage');
+      },
+      error => {});    
+  }
+ 
+  signup() {
+    this.navCtrl.push('SignupPage');
   }
 }
