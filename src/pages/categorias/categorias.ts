@@ -19,7 +19,9 @@ import { API_CONFIG } from '../../config/api.config';
 export class CategoriasPage {
 
   bucketUrl: string = API_CONFIG.bucketBaseUrl;
+
   items: CategoriaDTO[];
+
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -29,8 +31,12 @@ export class CategoriasPage {
   ionViewDidLoad() {
     this.categoriaService.findAll()
       .subscribe(response => {
-        this.items = response ;
+        this.items = response;
       },
-      error => {});    
+      error => {});
+  }
+
+  showProdutos(categoria_id : string) {
+    this.navCtrl.push('ProdutosPage', {categoria_id: categoria_id});    
   }
 }

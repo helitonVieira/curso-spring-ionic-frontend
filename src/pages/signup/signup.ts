@@ -5,7 +5,7 @@ import { CidadeService } from '../../services/domain/cidade.service';
 import { EstadoService } from '../../services/domain/estado.service';
 import { EstadoDTO } from '../../models/estado.dto';
 import { CidadeDTO } from '../../models/cidade.dto';
-//import { ClienteService } from '../../services/domain/cliente.service';
+import { ClienteService } from '../../services/domain/cliente.service';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 
 @IonicPage()
@@ -25,11 +25,11 @@ export class SignupPage {
     public formBuilder: FormBuilder,
     public cidadeService: CidadeService,
     public estadoService: EstadoService,
-    //public clienteService: ClienteService,
+    public clienteService: ClienteService,
     public alertCtrl: AlertController) {
 
     this.formGroup = this.formBuilder.group({
-      nome: ['Joaquim', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
+      nome: ['Joaquim', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
       email: ['joaquim@gmail.com', [Validators.required, Validators.email]],
       tipo : ['1', [Validators.required]],
       cpfOuCnpj : ['06134596280', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
@@ -67,13 +67,13 @@ export class SignupPage {
       error => {});
   }
 
- /* signupUser() {
+  signupUser() {
     this.clienteService.insert(this.formGroup.value)
       .subscribe(response => {
         this.showInsertOk();
       },
       error => {});
-  }*/
+  }
 
   showInsertOk() {
     let alert = this.alertCtrl.create({

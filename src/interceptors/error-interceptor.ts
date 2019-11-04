@@ -8,10 +8,8 @@ import { FieldMessage } from '../models/fieldmessage';
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-    constructor(
-        public storage: StorageService,
-         public alertCtrl: AlertController) {
-    }    
+    constructor(public storage: StorageService, public alertCtrl: AlertController) {
+    }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req)
@@ -57,7 +55,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         let alert = this.alertCtrl.create({
             title: 'Erro 401: falha de autenticação',
             message: 'Email ou senha incorretos',
-            enableBackdropDismiss: false, //sair do alert tem que tocar dentro dele opcional
+            enableBackdropDismiss: false,
             buttons: [
                 {
                     text: 'Ok'
